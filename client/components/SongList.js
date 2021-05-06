@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import { Link } from "react-router";
 import query from "../queries/fetchSongs";
+import gql from "graphql-tag";
 
 class SongList extends Component {
   onSongDelete(id) {
-    this.props.mutate({ variables: { id } });
+    this.props
+      .mutate({ variables: { id } })
+      .then(() => this.props.data.refetch());
   }
 
   renderSongs() {
